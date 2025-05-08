@@ -17,6 +17,8 @@ void insercaoVideoLista(PointerVideo *p_video, int quantity) {
         file = fopen("data100.csv", "r");
     } else if (quantity == 1000) {
         file = fopen("data1000.csv", "r");
+    } else {
+        file = fopen("data1-000-000.csv", "r");
     }
 
     if (!file) {
@@ -26,10 +28,11 @@ void insercaoVideoLista(PointerVideo *p_video, int quantity) {
 
     Video *tail = NULL;
     char line[256];
+    int count = 0;
 
     while (fgets(line, sizeof(line), file)) {
         Video *newVideo = (Video*)malloc(sizeof(Video));
-        if (sscanf(line, "%d,%d,%99[^\n]", &newVideo->id, &newVideo->duration, newVideo->title) != 3) {
+        if (sscanf(line, "%ld,%99[^,],%99[^,],%ld,%ld,%ld,%99[^\n]", &newVideo->id, newVideo->titulo, newVideo->duracao, &newVideo->visualizacoes, &newVideo->likes, &newVideo->dislikes, newVideo->tag) != 7) {
             free(newVideo);
             continue;
         }
@@ -42,9 +45,11 @@ void insercaoVideoLista(PointerVideo *p_video, int quantity) {
             tail->next = newVideo;
             tail = newVideo;
         }
-    }
-    fclose(file);
 
+        // printf("%d\n", count++);
+    }
+
+    fclose(file);
 }
 
 void exibirListaVideo(PointerVideo head) {
@@ -54,15 +59,27 @@ void exibirListaVideo(PointerVideo head) {
     }
 
     Video *current = head;
-    int count = 1;
     
     printf("\n=== LISTA DE VIDEOS ===\n");
     while (current != NULL) {
-        printf("\nVideo %d\n", count++);
-        printf("ID: %d\n", current->id);
-        printf("Titulo: %s\n", current->title);
-        printf("Duracao: %d minutos\n", current->duration);
+        printf("\nID: %ld\n", current->id);
+        printf("Titulo: %s\n", current->titulo);
+        printf("Duracao: %s\n", current->duracao);
+        printf("Visualizacoes: %ld\n", current->visualizacoes);
+        printf("Likes: %ld\n", current->likes);
+        printf("Dislikes: %ld\n", current->dislikes);
+        printf("Tag: %s\n", current->tag);
         current = current->next;
     }
     printf("\n=== FIM DA LISTA ===\n");
+}
+
+void liberaListaVideo(PointerVideo *head) {
+    Video *current = *head;
+    while (current != NULL) {
+        Video *temp = current;
+        current = current->next;
+        free(temp);
+    }
+    *head = NULL;
 }
