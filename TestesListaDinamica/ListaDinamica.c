@@ -18,15 +18,27 @@ void insercaoVideoLista(PointerVideo *p_video, int quantity) {
     } else if (quantity == 1000) {
         file = fopen("data1000.csv", "r");
     } else if (quantity == 10000) {
-        file = fopen("../data10-000.csv", "r");
+        file = fopen("../../csvs/data10-000.csv", "r");
     } else if (quantity == 20000) {
-        file = fopen("../data20-000.csv", "r");
+        file = fopen("../../csvs/data20-000.csv", "r");
     } else if (quantity == 30000) {
-        file = fopen("../data30-000.csv", "r");
+        file = fopen("../../csvs/data30-000.csv", "r");
     } else if (quantity == 40000) {
-        file = fopen("../data40-000.csv", "r");
+        file = fopen("../../csvs/data40-000.csv", "r");
     } else if (quantity == 50000) {
-        file = fopen("../data50-000.csv", "r");
+        file = fopen("../../csvs/data50-000.csv", "r");
+    } else if (quantity == 100000) {
+        file = fopen("../../csvs/data100-000.csv", "r");
+    } else if (quantity == 200000) {
+        file = fopen("../../csvs/data200-000.csv", "r");
+    } else if (quantity == 300000) {
+        file = fopen("../../csvs/data300-000.csv", "r");
+    } else if (quantity == 400000) {
+        file = fopen("../../csvs/data400-000.csv", "r");
+    } else if (quantity == 500000) {
+        file = fopen("../../csvs/data500-000.csv", "r");
+    } else {
+        file = fopen("../../csvs/data1-000-000.csv", "r");
     }
 
     if (!file) {
